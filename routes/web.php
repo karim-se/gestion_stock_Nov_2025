@@ -12,7 +12,7 @@ Route ::get('/Articles',[ArticleController::class, 'Liste_Articles'])->name('Lis
 Route::get('/Articles/Ajouter_Article',[ArticleController::class,'Ajouter_Article']);
 Route::Post('/Articles/Ajouter_Article',[ArticleController::class,'Store_Article'])->name('Store_Article');
 
-Route::get('/Articles/Modifier_Article/{id}',[ArticleController::class,'edit'])->name('articles.edit');;
+Route::get('/Articles/Modifier_Article/{id}',[ArticleController::class,'edit'])->name('articles.edit');
 Route::Post('/Articles/Modifier_Article/{id}',[ArticleController::class,'update'])->name('articles.update');
 
 
@@ -32,3 +32,6 @@ Route::post("Ventes/Ajouter_CommandeVente",[CommandeVenteController::class,"Stor
 
 
 Route::get("Achats/Liste_Achats", [CommandeAchatController::class, "Liste_Achats"])->name("Listes_Achats");
+
+Route::get('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::class,'edit'])->name('achats.edit');
+Route::post('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::class,'update'])->name('achats.update');

@@ -8,6 +8,7 @@ use App\Models\Detailcommandeachat;
 use App\Models\Article;
 use App\Models\Fournisseur;
 use App\Models\StatutCommande;
+use PhpParser\NodeVisitor\CommentAnnotatingVisitor;
 
 
 
@@ -65,6 +66,30 @@ class CommandeAchatController extends Controller
         
         return redirect()->route('Listes_Achats');
         
+    }
+
+    public function edit ($id)
+    {
+
+        $detailsCommandeAchat=Detailcommandeachat::findOrFail($id);
+        $fournisseurs=Fournisseur::all();
+        $statuts=StatutCommande::all();
+        $articles=Article::all();
+        return view("Achats/Modifier_CommandeAchat", compact("detailsCommandeAchat","fournisseurs","statuts","articles"));
+    }
+
+
+    public function update ($id, Request $request)
+    {
+ 
+          $detailsCommandeAchat=Detailcommandeachat::findOrFail($id);
+        $CommandeAchat=Commandeachat::find( $detailsCommandeAchat->CommandeAchatID);
+
+          $detailsCommandeAchat->update($request->all());
+           $CommandeAchat->update($request->all());
+
+          return redirect(route("Listes_Achats"));
+
     }
 
 

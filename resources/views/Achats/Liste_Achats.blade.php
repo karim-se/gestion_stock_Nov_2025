@@ -26,6 +26,7 @@ table,th, td {
         <th> Quantite</th>
         <th>Nom Fournisseur</th>
         <th>Statut Commande</th>
+        <th>Modifier</th>
   
 </tr> 
 
@@ -37,6 +38,8 @@ table,th, td {
         <td>{{ $detaillesCommande -> Quantite}}</td>
         <td>{{$detaillesCommande -> commandeachat->fournisseur->NomFournisseur}}</td>
         <td>{{ $detaillesCommande -> commandeachat->statut_commande->Statut }}</td>
+      
+       <<td><a href ="{{ route("achats.edit", $detaillesCommande->DetailAchatID ) }}"> Modifier Commande</a></td>
        
 </tr>
 @endforeach

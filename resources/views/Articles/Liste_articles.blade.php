@@ -29,6 +29,11 @@ Ajouter un Article</a>
  <table>
      <tr>
      <th> Nom article</th>
+     <th> Desription</th>
+     <th> Prix Achat</th>
+     <th> Prix Vente</th>
+     <th>Stock Actuel</th>
+     <th>Stock minimum</th>
      <th> Nom Categotie</th>
     <th> Modifier</th>
     <th>Supprimer</th>
@@ -38,6 +43,11 @@ Ajouter un Article</a>
                         <tr>
                   
                             <td>{{ $article->NomArticle }}</td>
+                            <td>{{$article-> Description }}</td>
+                            <td>{{$article-> PrixAchatStandard	 }}</td>
+                            <td>{{  $article->PrixVenteStandard}}</td>
+                            <td>{{$article->  StockActuel}}</td>
+                            <td>{{ $article-> StockMinimum }}</td>
                             <td>{{ $article->categorie->NomCategorie ?? 'Non Specifie' }}</td>
                            <td> <a href="{{ route('articles.edit', $article->articleID ) }}" class="button">Modifier_Article</a> </td>
                              <td> <a href="{{ route('Supp_Article', $article->articleID ) }}" class="button">Supprimer_Article</a> </td>

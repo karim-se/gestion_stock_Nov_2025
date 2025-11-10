@@ -14,6 +14,8 @@
 </style>
 <body>
 
+
+
 <form method="POST" action ="{{ route('Store_CommandeAchat') }}" >
      @csrf
    <div>

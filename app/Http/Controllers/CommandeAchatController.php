@@ -14,6 +14,19 @@ use App\Models\StatutCommande;
 class CommandeAchatController extends Controller
 {
 
+    
+
+    public function Liste_Achats()
+    {
+        
+     $detaillesCommandes=Detailcommandeachat::all();
+
+     
+
+     return view("Achats/Liste_Achats", compact("detaillesCommandes"));
+
+    }
+
 
     public function Ajouter_CommandeAchat()
     {
@@ -28,40 +41,30 @@ class CommandeAchatController extends Controller
 
     public function Store_CommandeAchat(Request $request)
     {
-/*
-         $request->validate([
-      
-        'FournisseurID' => 'required|integer',
-        'Statut_ID' => 'required|integer',
-        //'ArticleID'=>'required|integer',
-       
-    ]);
-*/
-    $Commandeachat=Commandeachat::create($request->all());
+
+        $Commandeachat=Commandeachat::create($request->all());
 
 
-    Detailcommandeachat::create(
+        Detailcommandeachat::create(
+            
+            [
+                "CommandeAchatID" => $Commandeachat->CommandeAchatID,
+                "ArticleID" => $request->ArticleID,
+                "Quantite" => $request->Quantite,
+                "PrixUnitaire" => $request->PrixUnitaire,
+            ]
         
-        [
-            "CommandeAchatID" => $Commandeachat->CommandeAchatID,
-            "ArticleID" => $request->ArticleID,
-            "Quantite" => $request->Quantite,
-            "PrixUnitaire" => $request->PrixUnitaire,
-        ]
-    
-    );
- 
-    
+        );
    
-         $article = Article::find($request->ArticleID);
-         
-            if ($article && $request->Statut_ID == 2) {
-                $article->StockActuel += $request->Quantite;
-                $article->save();
-            }
-       
-       return redirect()->route('Articles/Listes_Articles');
-      
+            $article = Article::find($request->ArticleID);
+            
+                if ($article && $request->Statut_ID == 2) {
+                    $article->StockActuel += $request->Quantite;
+                    $article->save();
+                }
+        
+        return redirect()->route('Listes_Achats');
+        
     }
 
 

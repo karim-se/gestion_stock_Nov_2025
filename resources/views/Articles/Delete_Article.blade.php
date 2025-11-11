@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('Delete_Article', $article->articleID) }}" method="POST">
+    <form action ="{{ route('Delete_Article', $id) }}" method="POST">
          @csrf
         <input type="hidden" asp-for="articleID" />
 

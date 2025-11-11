@@ -63,12 +63,14 @@ class ArticleController extends Controller
     }
 
 
-    public function Supprimer(Request $request,$id )
+
+    
+    public function Supprimer($id )
     {
 
-        $article=Article::find($id);
-         $categories=Categorie::all();
-        return view ("/Articles/Delete_Article", compact("article","categories"));
+        
+         
+        return view ("/Articles/Delete_Article", compact("id"));
 
     }
 

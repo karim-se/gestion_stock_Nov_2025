@@ -17,7 +17,7 @@ Route::Post('/Articles/Modifier_Article/{id}',[ArticleController::class,'update'
 
 
 Route::get('/Article/Supprimer_Article/{id}', [ArticleController::class,"Supprimer"])->name('Supp_Article');
-Route::Post("/Article/Supprimer_Article/{id}", [ArticleController::class, "Delete"])->name("Delete_Article");
+Route::Post("/Article/Delete_Article/{id}", [ArticleController::class, "Delete"])->name("Delete_Article");
 
 /******************************************************************************************* */
 Route::get('Achats/Ajouter_CommandeAchat',[CommandeAchatController::class,'Ajouter_CommandeAchat']);
@@ -35,3 +35,10 @@ Route::get("Achats/Liste_Achats", [CommandeAchatController::class, "Liste_Achats
 
 Route::get('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::class,'edit'])->name('achats.edit');
 Route::post('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::class,'update'])->name('achats.update');
+
+
+Route::get('/Achat/Supprimer_Achat/{id}', [CommandeAchatController::class,"Supprimer"])->name('Supp_Achat');
+Route::Post("/Achat/Delete_Achat/{id}", [CommandeAchatController::class, "Delete"])->name("Delete_Achat");
+
+
+

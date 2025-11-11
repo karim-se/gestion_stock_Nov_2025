@@ -40,8 +40,8 @@ table,th, td {
         <td>{{$detaillesCommande -> commandeachat->fournisseur->NomFournisseur}}</td>
         <td>{{ $detaillesCommande -> commandeachat->statut_commande->Statut }}</td>
       
-       <td><a href ="{{ route("achats.edit", $detaillesCommande->DetailAchatID ) }}"> Modifier Commande</a></td>
-        <td><a href ="{{ route("achats.delete", $detaillesCommande->DetailAchatID ) }}"> Supprimer Commande</a></td>
+       <td><a href ="{{ route("achats.edit", $detaillesCommande->DetailAchatID ) }}"> Modifier Achat</a></td>
+      <td> <a href="{{ route('Supp_Achat', $detaillesCommande->DetailAchatID ) }}" class="button">Supprimer_Achat</a> </td>
        
 </tr>
 @endforeach

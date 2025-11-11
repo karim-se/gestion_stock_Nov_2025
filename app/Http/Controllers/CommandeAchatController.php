@@ -94,5 +94,24 @@ class CommandeAchatController extends Controller
 
 
 
+    public function Supprimer($id)
+    {
+
+        return view("Achats/Delete_CommandeAchat", compact("id"));
+
+    }
+
+
+
+    public function Delete($id)
+    {
+
+        Detailcommandeachat::destroy($id);
+
+        return redirect("Achats/Liste_Achats");
+    }
+
+
+
     
 }

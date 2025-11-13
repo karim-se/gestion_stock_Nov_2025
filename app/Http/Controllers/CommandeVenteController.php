@@ -34,22 +34,25 @@ class CommandeVenteController
           
          $commandevente= Commandevente::create($request->all());
 
+
+         foreach ($request->articles as $article) {
+
          Detailcommandevente::create(
             [
             "CommandeVenteID"=>$commandevente->CommandeVenteID ,   
-            "ArticleID"=>$request->ArticleID,
-            "PrixUnitaire"=>$request->PrixUnitaire,
-            "Quantite"=>$request->Quantite
+            "ArticleID"=>$article["ArticleID"],
+            "PrixUnitaire"=>$article["PrixUnitaire"],
+            "Quantite"=>$article["Quantite"]
             ]
             );
 
 
-
-            if ($request->Statut_ID==2)
+            $art = Article::find($article['ArticleID']);
+            if ($request['Statut_ID'] == 2)
             {
                
-                Article::where('articleID',$request->ArticleID)
-                         ->decrement('StockActuel',$request->Quantite);
+                Article::where('articleID',$article["ArticleID"])
+                         ->decrement('StockActuel',$article["Quantite"]);
                 /*
                 $article->StockActuel-=$request->Quantite;
                 $article->save();
@@ -59,11 +62,11 @@ class CommandeVenteController
             }
 
           
+        }
 
 
 
-
-            return redirect()->route('Articles/Listes_Articles');
+            return redirect()->route('Listes_Articles');
 
 
         

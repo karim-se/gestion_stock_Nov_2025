@@ -43,27 +43,28 @@ class CommandeAchatController extends Controller
     public function Store_CommandeAchat(Request $request)
     {
 
+       
         $Commandeachat=Commandeachat::create($request->all());
 
 
-        Detailcommandeachat::create(
-            
-            [
-                "CommandeAchatID" => $Commandeachat->CommandeAchatID,
-                "ArticleID" => $request->ArticleID,
-                "Quantite" => $request->Quantite,
-                "PrixUnitaire" => $request->PrixUnitaire,
-            ]
-        
-        );
+       foreach ($request->articles as $article) {
+          
+    DetailCommandeAchat::create([
+        'CommandeAchatID' => $Commandeachat->CommandeAchatID,
+        'ArticleID' => $article['ArticleID'],
+        'Quantite' => $article['Quantite'],
+        'PrixUnitaire' => $article['PrixUnitaire'],
+    ]);
+
+
    
-            $article = Article::find($request->ArticleID);
+            $art = Article::find($article['ArticleID']);
             
-                if ($article && $request->Statut_ID == 2) {
-                    $article->StockActuel += $request->Quantite;
-                    $article->save();
+                if ($art && $request['Statut_ID'] == 2) {
+                    $art->StockActuel += $article['Quantite'];
+                    $art->save();
                 }
-        
+  }      
         return redirect()->route('Listes_Achats');
         
     }

@@ -19,19 +19,15 @@ Route::Post('/Articles/Modifier_Article/{id}',[ArticleController::class,'update'
 Route::get('/Article/Supprimer_Article/{id}', [ArticleController::class,"Supprimer"])->name('Supp_Article');
 Route::Post("/Article/Delete_Article/{id}", [ArticleController::class, "Delete"])->name("Delete_Article");
 
-/******************************************************************************************* */
+/************************************************************************************************************************* */
+
+Route::get("Achats/Liste_Achats", [CommandeAchatController::class, "Liste_Achats"])->name("Listes_Achats");
+
+
 Route::get('Achats/Ajouter_CommandeAchat',[CommandeAchatController::class,'Ajouter_CommandeAchat']);
 Route::post('Achats/Ajouter_CommandeAchat',[CommandeAchatController::class,'Store_CommandeAchat'])->name('Store_CommandeAchat');
 
 
-
-Route::get("Ventes/Ajouter_CommandeVente",[CommandeVenteController::class ,'Ajouter_CommandeVente'] );
-Route::post("Ventes/Ajouter_CommandeVente",[CommandeVenteController::class,"Store_CommandeVente"] )->name("Store_CommandeVente");
-
-
-
-
-Route::get("Achats/Liste_Achats", [CommandeAchatController::class, "Liste_Achats"])->name("Listes_Achats");
 
 Route::get('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::class,'edit'])->name('achats.edit');
 Route::post('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::class,'update'])->name('achats.update');
@@ -40,5 +36,18 @@ Route::post('/Achats/Modifier_CommandeAchat/{id}',[CommandeAchatController::clas
 Route::get('/Achat/Supprimer_Achat/{id}', [CommandeAchatController::class,"Supprimer"])->name('Supp_Achat');
 Route::Post("/Achat/Delete_Achat/{id}", [CommandeAchatController::class, "Delete"])->name("Delete_Achat");
 
+/**************************************************************************************************************************** */
+
+Route::get("Ventes/Liste_Ventes", [CommandeVenteController::class, "Liste_Ventes"])->name("Liste_Ventes");
+
+Route::get("Ventes/Ajouter_CommandeVente",[CommandeVenteController::class ,'Ajouter_CommandeVente'] );
+Route::post("Ventes/Ajouter_CommandeVente",[CommandeVenteController::class,"Store_CommandeVente"] )->name("Store_CommandeVente");
 
 
+Route::get("Ventes/Modifier_Vente/{id}",[CommandeVenteController::class,"Edit"])->name("Vente.edit");
+Route::post("Ventes/Update_Vente{id}", [CommandeVenteController::class, "Update"])->name("Vente.update");
+
+
+
+Route::get('/Vente/Supprimer_Vente/{id}', [CommandeVenteController::class,"Supprimer"])->name('Supp_Vente');
+Route::Post("/Vente/Delete_Vente/{id}", [CommandeVenteController::class, "Delete"])->name("Delete_Vente");

@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Client;
+use App\Models\Fournisseur;
 use App\Models\StatutCommande;
 use App\Models\Commandevente;
 
 
 use Illuminate\Http\Request;
 use App\Models\Detailcommandevente;
+use View;
 
 class CommandeVenteController
 {
+
+
+   public function Liste_Ventes(){
+
+      $detailecommandesventes=Detailcommandevente::all();
+
+        return View("Ventes\Liste_Ventes", compact("detailecommandesventes"));
+   }
+
 
     
     public function Ajouter_CommandeVente()
@@ -31,7 +42,8 @@ class CommandeVenteController
     public function Store_CommandeVente(Request $request)
     {
   
-          
+       
+        
          $commandevente= Commandevente::create($request->all());
 
 
@@ -63,12 +75,58 @@ class CommandeVenteController
 
           
         }
-
-
-
-            return redirect()->route('Listes_Articles');
+            return redirect()->route('Liste_Ventes');
 
 
         
+    }
+
+
+
+    public function  Edit($id){
+
+        $detailescommandevents=Detailcommandevente::find($id);
+        $clients=Client::all();
+        $statuts=StatutCommande::all();
+        $articles=Article::all();
+
+        return view("Ventes\Modifier_Vente", compact("detailescommandevents","clients","statuts","articles"));
+
+
+    }
+
+    public function Update(Request $request,$id)
+    {
+
+       $detailcommandevente=Detailcommandevente::find($id);
+       $commandevente=Commandevente::find($detailcommandevente->CommandeVenteID);
+
+
+
+       $detailcommandevente->update($request->all());
+       $commandevente->update($request->all());
+
+       return redirect(route("Liste_Ventes"));
+
+
+    }
+
+
+
+     public function Supprimer($id)
+    {
+
+        return view("Ventes/Delete_CommandeVente", compact("id"));
+
+    }
+
+
+
+    public function Delete($id)
+    {
+
+        Detailcommandevente::destroy($id);
+
+        return redirect("Ventes/Liste_Ventes");
     }
 }

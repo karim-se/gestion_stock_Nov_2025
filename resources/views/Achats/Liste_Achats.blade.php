@@ -11,12 +11,18 @@
 table,th, td {
   border: 1px solid black;
 }
+a{
+        margin-bottom: 20px;
+}
+
     
 
 </style>
 
 
-<a href="Ajouter_CommandeAchat">Ajouter une Commande Achat</a>
+<a href="Ajouter_CommandeAchat"
+style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
+Ajouter une Commande Achat</a>
 
 <table>
 <tr>   

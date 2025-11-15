@@ -93,10 +93,10 @@ label, input, button , select, table {
         {
 
          
-           let ArticleID = document.getElementById("Article").value;     
-           let NomArticle = document.getElementById("Article").options[document.getElementById("Article").selectedIndex].text;
-          let PrixUnitaire=document.getElementById("PrixUnitaire").value;
-          let Quantite=document.getElementById("Quantite").value;
+           let ArticleID = document.getElementById("Article");     
+           let NomArticle = document.getElementById("Article").options[document.getElementById("Article").selectedIndex];
+          let PrixUnitaire=document.getElementById("PrixUnitaire");
+          let Quantite=document.getElementById("Quantite");
 
 
           let vente_tr=document.createElement("tr");
@@ -104,9 +104,9 @@ label, input, button , select, table {
           let PrixUnitaire_td=document.createElement("td");
           let Quantite_td=document.createElement("td");
 
-          NomArticle_td.innerText=NomArticle;
-          PrixUnitaire_td.innerText=PrixUnitaire;
-          Quantite_td.innerText=Quantite;
+          NomArticle_td.innerText=NomArticle.text;
+          PrixUnitaire_td.innerText=PrixUnitaire.value;
+          Quantite_td.innerText=Quantite.value;
       
           vente_tr.appendChild(NomArticle_td);
           vente_tr.appendChild(PrixUnitaire_td);
@@ -118,14 +118,16 @@ label, input, button , select, table {
  
            let hiddenContainer = document.createElement("div");
                 hiddenContainer.innerHTML = `
-                <input type="hidden" name="articles[${index}][ArticleID]" value="${ArticleID}">
-                <input type="hidden" name="articles[${index}][PrixUnitaire]" value="${PrixUnitaire}">
-                <input type="hidden" name="articles[${index}][Quantite]" value="${Quantite}">
+                <input type="hidden" name="articles[${index}][ArticleID]" value="${ArticleID.value}">
+                <input type="hidden" name="articles[${index}][PrixUnitaire]" value="${PrixUnitaire.value}">
+                <input type="hidden" name="articles[${index}][Quantite]" value="${Quantite.value}">
                 `;
                 document.querySelector("form").appendChild(hiddenContainer);
 
-                prix.value = "";
-                quantite.value = "";
+
+               PrixUnitaire.value= "";
+               Quantite.value= "";
+                
            
 
         }

@@ -16,7 +16,7 @@
 
 
 
-<form method="POST" action ="{{ route('Store_CommandeAchat') }}" >
+<form method="POST" action ="{{ route('achats.store') }}" >
      @csrf
    <div>
         <label for ="Fournissuer">Nom Fournisseur</label>

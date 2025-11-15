@@ -65,7 +65,7 @@ class CommandeAchatController extends Controller
                     $art->save();
                 }
   }      
-        return redirect()->route('Listes_Achats');
+        return redirect()->route('achats.liste_achats');
         
     }
 
@@ -89,7 +89,7 @@ class CommandeAchatController extends Controller
           $detailsCommandeAchat->update($request->all());
            $CommandeAchat->update($request->all());
 
-          return redirect(route("Listes_Achats"));
+          return redirect(route("achats.liste_achats"));
 
     }
 
@@ -109,7 +109,7 @@ class CommandeAchatController extends Controller
 
         Detailcommandeachat::destroy($id);
 
-        return redirect("Achats/Liste_Achats");
+        return redirect(route("achats.liste_achats"));
     }
 
 

@@ -13,7 +13,7 @@ label, input, button , select, table {
 
 </style>
 <body>
-<form method="POST" action="{{ route('Store_CommandeVente') }}">
+<form method="POST" action="{{ route('ventes.store') }}">
 
             @csrf
                 <div>

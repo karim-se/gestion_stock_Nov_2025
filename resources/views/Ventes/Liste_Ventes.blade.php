@@ -17,7 +17,7 @@
     }
 </style>
 
-<a href="/Ventes/Ajouter_CommandeVente"
+<a href="Ajouter"
 style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
     
 Ajouter Commande Vente</a>
@@ -42,8 +42,8 @@ Ajouter Commande Vente</a>
           <td>{{ $detailecommandevente->Quantite }}</td>
           <td>{{ $detailecommandevente->commandevente->client->NomClient}}</td>
           <td>{{ $detailecommandevente->commandevente->statut_commande->Statut}}</td>
-          <td><a href="{{ route("Vente.edit", $detailecommandevente->	DetailVenteID) }}">Modifier Vente</a></td>
-          <td> <a href="{{ route('Supp_Vente', $detailecommandevente->	DetailVenteID ) }}" class="button">Supprimer Vente</a> </td>
+          <td><a href="{{ route("ventes.edit", $detailecommandevente->	DetailVenteID) }}">Modifier Vente</a></td>
+          <td> <a href="{{ route('ventes.Supprimer', $detailecommandevente->	DetailVenteID ) }}" class="button">Supprimer Vente</a> </td>
 
   </tr>
 @endforeach

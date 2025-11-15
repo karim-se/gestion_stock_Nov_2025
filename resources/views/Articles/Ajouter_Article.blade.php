@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('Store_Article') }}" method="POST">
+    <form action ="{{ route('articles.store') }}" method="POST">
          @csrf
         <div>
             <label for="Nom_Article">Nom Article</label>

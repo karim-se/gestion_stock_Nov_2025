@@ -21,7 +21,7 @@ a {
 <body>
 
  
-<a href="Articles/Ajouter_Article"
+<a href="Ajouter"
 style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
 Ajouter un Article</a>
 
@@ -50,7 +50,7 @@ Ajouter un Article</a>
                             <td>{{ $article-> StockMinimum }}</td>
                             <td>{{ $article->categorie->NomCategorie ?? 'Non Specifie' }}</td>
                            <td> <a href="{{ route('articles.edit', $article->articleID ) }}" class="button">Modifier_Article</a> </td>
-                             <td> <a href="{{ route('Supp_Article', $article->articleID ) }}" class="button">Supprimer_Article</a> </td>
+                             <td> <a href="{{ route('articles.Supprimer', $article->articleID ) }}" class="button">Supprimer_Article</a> </td>
                            
 
                         </tr>

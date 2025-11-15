@@ -20,7 +20,7 @@ a{
 </style>
 
 
-<a href="Ajouter_CommandeAchat"
+<a href="Ajouter"
 style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
 Ajouter une Commande Achat</a>
 
@@ -47,7 +47,7 @@ Ajouter une Commande Achat</a>
         <td>{{ $detaillesCommande -> commandeachat->statut_commande->Statut }}</td>
       
        <td><a href ="{{ route("achats.edit", $detaillesCommande->DetailAchatID ) }}"> Modifier Achat</a></td>
-      <td> <a href="{{ route('Supp_Achat', $detaillesCommande->DetailAchatID ) }}" class="button">Supprimer_Achat</a> </td>
+      <td> <a href="{{ route('achats.Supprimer', $detaillesCommande->DetailAchatID ) }}" class="button">Supprimer_Achat</a> </td>
        
 </tr>
 @endforeach

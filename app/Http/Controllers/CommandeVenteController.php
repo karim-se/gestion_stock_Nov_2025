@@ -75,7 +75,7 @@ class CommandeVenteController
 
           
         }
-            return redirect()->route('Liste_Ventes');
+            return redirect()->route('ventes.liste_ventes');
 
 
         
@@ -106,7 +106,7 @@ class CommandeVenteController
        $detailcommandevente->update($request->all());
        $commandevente->update($request->all());
 
-       return redirect(route("Liste_Ventes"));
+       return redirect(route("ventes.liste_ventes"));
 
 
     }
@@ -127,6 +127,6 @@ class CommandeVenteController
 
         Detailcommandevente::destroy($id);
 
-        return redirect("Ventes/Liste_Ventes");
+        return redirect(route("ventes.liste_ventes"));
     }
 }

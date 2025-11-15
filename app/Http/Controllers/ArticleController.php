@@ -38,7 +38,7 @@ class ArticleController extends Controller
 
         Article::create($request->all());
 
-       return redirect()->route('Listes_Articles');      
+       return redirect()->route('articles.liste_articles');      
     }
 
 
@@ -59,7 +59,7 @@ class ArticleController extends Controller
 
         $article->update($request->all());
 
-        return redirect()->route('Listes_Articles');  
+        return redirect()->route('articles.liste_articles');   
     }
 
 
@@ -81,7 +81,7 @@ class ArticleController extends Controller
         $article=Article::find($id);
         $article->delete();
 
-        Return redirect()->route('Listes_Articles');  
+        Return redirect()->route('articles.liste_articles');  
     }
 
 }

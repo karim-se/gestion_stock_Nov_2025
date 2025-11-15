@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('Delete_Article', $id) }}" method="POST">
+    <form action ="{{ route('articles.delete', $id) }}" method="POST">
          @csrf
         <input type="hidden" asp-for="articleID" />
 
@@ -25,7 +25,7 @@
             <button type="submit"
                style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
              Valider</button>
-            <a href="{{ route('Listes_Articles') }}" 
+            <a href="{{ route('articles.liste_articles') }}" 
    style="display:inline-block; padding:8px 15px; background-color:#dc3545; color:white; border:none; border-radius:6px; text-decoration:none;">
    Annuler
 </a>

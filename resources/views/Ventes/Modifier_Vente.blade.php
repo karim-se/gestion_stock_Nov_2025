@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('Vente.update', $detailescommandevents->	DetailVenteID) }}" method="POST">
+    <form action ="{{ route('ventes.update', $detailescommandevents->	DetailVenteID) }}" method="POST">
          @csrf
         <input type="hidden" asp-for="articleID" />
 

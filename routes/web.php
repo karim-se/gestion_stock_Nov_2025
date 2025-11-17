@@ -3,7 +3,15 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommandeAchatController;
 use App\Http\Controllers\CommandeVenteController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+
+
+
+Route::get('/', function () {
+    return view('Home');
+});
+
 
 Route::prefix('Articles')->name('articles.')->group(function () {
     Route::get('/Liste', [ArticleController::class, 'Liste_Articles'])->name('liste_articles');
@@ -34,3 +42,15 @@ Route::prefix('Ventes')->name('ventes.')->group(function () {
     Route::get('Supprimer/{id}', [CommandeVenteController::class, 'Supprimer'])->name('Supprimer');
     Route::post('Delete/{id}', [CommandeVenteController::class, 'Delete'])->name('delete');
 });
+
+
+
+
+
+/****************************Authentification****************************************** */
+// auth
+Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

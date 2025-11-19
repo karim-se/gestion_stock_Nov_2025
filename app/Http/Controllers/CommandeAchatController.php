@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Commandeachat;
 use App\Models\Detailcommandeachat;
 use App\Models\Article;
 use App\Models\Fournisseur;
 use App\Models\StatutCommande;
-use PhpParser\NodeVisitor\CommentAnnotatingVisitor;
-
-
 
 class CommandeAchatController extends Controller
 {
@@ -20,37 +18,22 @@ class CommandeAchatController extends Controller
 
         $commandesachat=Commandeachat::all();
       
-        return view ("Achats/Commande_Achat", compact("commandesachat"));
-    }
-
-    
-
-    public function Liste_Achats($id)
-    {
-        
-     $detaillesCommandes=Detailcommandeachat::where("CommandeAchatID",$id)->get();
-
-    // dd($detaillesCommandes);
-
-     
-
-     return view("Achats/Liste_Achats", compact("detaillesCommandes"));
-
+        return view ("Achats/Commande_Achat/ListeCommandeAchat", compact("commandesachat"));
     }
 
 
-    public function Ajouter_CommandeAchat()
+    public function Create()
     {
 
 
         $fournisseurs=Fournisseur::all();
         $status=StatutCommande::all();
         $articles=Article::all();
-        return view("Achats/Ajouter_CommandeAchat", compact(['fournisseurs',"status", "articles"]));
+        return view("Achats/Commande_Achat/Ajouter_CommandeAchat", compact(['fournisseurs',"status", "articles"]));
     }
 
 
-    public function Store_CommandeAchat(Request $request)
+    public function Store(Request $request)
     {
         
        
@@ -79,53 +62,54 @@ class CommandeAchatController extends Controller
         
     }
 
-    public function edit ($id2)
+
+
+
+
+
+     public function Edit ($id2)
     {
       
-        $detailsCommandeAchat=Detailcommandeachat::findOrFail($id2);
+        $commandeAchat=Commandeachat::findOrFail($id2);
         
         $fournisseurs=Fournisseur::all();
         $statuts=StatutCommande::all();
-        $articles=Article::all();
-        return view("Achats/Modifier_CommandeAchat", compact("detailsCommandeAchat","fournisseurs","statuts","articles"));
+  
+        return view("Achats/Commande_Achat/Modifier_CommandeAchat", compact("commandeAchat","fournisseurs","statuts"));
     }
 
 
-    public function update ($id1, $id2, Request $request)
+       public function Update ($id1, Request $request)
     {
  
-          $detailsCommandeAchat=Detailcommandeachat::findOrFail($id2);
-        $CommandeAchat=Commandeachat::find( $detailsCommandeAchat->CommandeAchatID);
+        
+        $CommandeAchat=Commandeachat::find( $id1);
 
-          $detailsCommandeAchat->update($request->all());
+     
            $CommandeAchat->update($request->all());
 
-          return redirect(route("achats.liste_achats", ["id"=>$id1]));
+          return redirect(route("achats.commande_achats", ["id"=>$id1]));
 
     }
 
 
-
-    public function Supprimer($id1, $id2)
+    public function Supprimer($id1)
     {
 
-        return view("Achats/Delete_CommandeAchat", compact("id1", "id2"));
+        return view("Achats/Commande_Achat/Delete_CommandeAchat", compact("id1"));
 
     }
 
 
 
-    public function Delete($id1, $id2)
+    public function Delete($id1)
     {
 
         
 
-        Detailcommandeachat::destroy($id2);
+        Commandeachat::destroy($id1);
 
-        return redirect(route("achats.liste_achats",['id' => $id1]));
+        return redirect(route("achats.commande_achats"));
     }
 
-
-
-    
 }

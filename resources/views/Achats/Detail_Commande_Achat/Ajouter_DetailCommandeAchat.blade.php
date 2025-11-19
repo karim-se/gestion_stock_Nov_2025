@@ -16,29 +16,9 @@
 
 
 
-<form method="POST" action ="{{ route('achats.store') }}" >
+<form method="POST" action ="{{ route('achats.store_detail',[$commandeAchat->CommandeAchatID]) }}" >
      @csrf
-   <div>
-        <label for ="Fournissuer">Nom Fournisseur</label>
-        <select id ="Fournissuer" name ="FournisseurID">
-            @foreach ( $fournisseurs as $fournisseur )
-                <option value ="{{ $fournisseur-> FournisseurID}}">{{ $fournisseur-> NomFournisseur}}</option>
-            @endforeach
-        </select>
-    </div>
-
-
-    <div>
-        <label for="Statut"> Statut Commande</label>
-        <select id ="Statut" name="Statut_ID">
-            @foreach ($status as  $statut)
-            <option value="{{ $statut-> Statut_ID}}">{{ $statut-> Statut}}</option>
-            
-            @endforeach
-
-        </select>
-
-   </div> 
+ 
 
     <div id="Detailles">
                 <div>

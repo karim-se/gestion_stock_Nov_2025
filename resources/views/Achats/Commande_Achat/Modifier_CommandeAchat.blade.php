@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('achats.update', [$detailsCommandeAchat->CommandeAchatID, $detailsCommandeAchat->DetailAchatID]) }}" method="POST">
+    <form action ="{{ route('achats.update_commande', [$commandeAchat->CommandeAchatID]) }}" method="POST">
          @csrf
         <input type="hidden" asp-for="articleID" />
 
@@ -29,7 +29,7 @@
             <select id="Nom Fournisseur" name="FournisseurID">
                     @foreach($fournisseurs as $fournisseur)
                 <option value= "{{ $fournisseur->FournisseurID }}" 
-                {{ old('FournisseurID', $detailsCommandeAchat->commandeachat->FournisseurID)
+                {{ old('FournisseurID', $commandeAchat->FournisseurID)
                  ==  $fournisseur->FournisseurID ? 'selected' : '' }}>{{$fournisseur->NomFournisseur}}</option>
                     @endforeach
             </select>
@@ -42,7 +42,7 @@
             <select id="Statut Commande" name="Statut_ID">
                     @foreach($statuts as $statut)
                 <option value= "{{ $statut->Statut_ID}}" 
-                {{ old('Statut_ID', $detailsCommandeAchat->commandeachat->Statut_ID)
+                {{ old('Statut_ID', $commandeAchat->Statut_ID)
                  ==  $statut->Statut_ID ? 'selected' : '' }}>{{$statut->Statut}}</option>
                     @endforeach
             </select>
@@ -51,29 +51,11 @@
 
 
 
-         <diV>
-           
-            <label for ="Nom Article">Nom Article</label>  
-            <select id="Nom Article" name="ArticleID">
-                    @foreach($articles as $article)
-                <option value= "{{ $article->articleID}}" 
-                {{ old('ArticleID', $detailsCommandeAchat->ArticleID)
-                 ==  $article->articleID  ? 'selected' : '' }}>{{$article->NomArticle}}</option>
-                    @endforeach
-            </select>
-        </diV>
+       
 
-        <div>
-            <label for="Prix Unitaire">Prix Unitaire</label>
-            <input type="number" id="Prix Unitaire" name="PrixUnitaire" value="{{ $detailsCommandeAchat->PrixUnitaire}}" > 
-        </div>
+       
 
-
-        <div>
-            <label for="Quantite">Quantite</label>
-            <input type="number" id="Quantite" name="Quantite" value="{{ $detailsCommandeAchat->Quantite}}" > 
-        </div>
-
+      
 
   
 

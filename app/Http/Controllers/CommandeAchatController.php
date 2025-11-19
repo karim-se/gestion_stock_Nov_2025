@@ -15,12 +15,22 @@ use PhpParser\NodeVisitor\CommentAnnotatingVisitor;
 class CommandeAchatController extends Controller
 {
 
+
+    public function Liste_Comanande_Achats(){
+
+        $commandesachat=Commandeachat::all();
+      
+        return view ("Achats/Commande_Achat", compact("commandesachat"));
+    }
+
     
 
-    public function Liste_Achats()
+    public function Liste_Achats($id)
     {
         
-     $detaillesCommandes=Detailcommandeachat::all();
+     $detaillesCommandes=Detailcommandeachat::where("CommandeAchatID",$id)->get();
+
+    // dd($detaillesCommandes);
 
      
 
@@ -42,7 +52,7 @@ class CommandeAchatController extends Controller
 
     public function Store_CommandeAchat(Request $request)
     {
-
+        
        
         $Commandeachat=Commandeachat::create($request->all());
 
@@ -65,14 +75,15 @@ class CommandeAchatController extends Controller
                     $art->save();
                 }
   }      
-        return redirect()->route('achats.liste_achats');
+        return redirect()->route('achats.commande_achats');
         
     }
 
-    public function edit ($id)
+    public function edit ($id2)
     {
-
-        $detailsCommandeAchat=Detailcommandeachat::findOrFail($id);
+      
+        $detailsCommandeAchat=Detailcommandeachat::findOrFail($id2);
+        
         $fournisseurs=Fournisseur::all();
         $statuts=StatutCommande::all();
         $articles=Article::all();
@@ -80,36 +91,38 @@ class CommandeAchatController extends Controller
     }
 
 
-    public function update ($id, Request $request)
+    public function update ($id1, $id2, Request $request)
     {
  
-          $detailsCommandeAchat=Detailcommandeachat::findOrFail($id);
+          $detailsCommandeAchat=Detailcommandeachat::findOrFail($id2);
         $CommandeAchat=Commandeachat::find( $detailsCommandeAchat->CommandeAchatID);
 
           $detailsCommandeAchat->update($request->all());
            $CommandeAchat->update($request->all());
 
-          return redirect(route("achats.liste_achats"));
+          return redirect(route("achats.liste_achats", ["id"=>$id1]));
 
     }
 
 
 
-    public function Supprimer($id)
+    public function Supprimer($id1, $id2)
     {
 
-        return view("Achats/Delete_CommandeAchat", compact("id"));
+        return view("Achats/Delete_CommandeAchat", compact("id1", "id2"));
 
     }
 
 
 
-    public function Delete($id)
+    public function Delete($id1, $id2)
     {
 
-        Detailcommandeachat::destroy($id);
+        
 
-        return redirect(route("achats.liste_achats"));
+        Detailcommandeachat::destroy($id2);
+
+        return redirect(route("achats.liste_achats",['id' => $id1]));
     }
 
 

@@ -89,16 +89,25 @@
 </form> 
 
 <script>
+
+let selectedArticles = new Set();    
 function Afficher_Articles() {
     let article = document.getElementById("Article");
     let prix = document.getElementById("PrixUnitaire");
     let quantite = document.getElementById("Quantite");
+
+    // Vérifier si l'article est déjà sélectionné
+    if (selectedArticles.has(article.value)) {
+        alert('Cet article a déjà été sélectionné !');
+        return;
+    }
 
     let tr = document.createElement("tr");
     tr.innerHTML = `
         <td>${article.options[article.selectedIndex].text}</td>
         <td>${prix.value}</td>
         <td>${quantite.value}</td>
+       
     `;
     document.getElementById("Liste_Articles").appendChild(tr);
 
@@ -112,9 +121,15 @@ function Afficher_Articles() {
     `;
         document.querySelector("form").appendChild(hiddenContainer);
 
+        selectedArticles.add(article.value);
+
         prix.value = "";
         quantite.value = "";
 }
+
+
+
+
 
 </script>
 

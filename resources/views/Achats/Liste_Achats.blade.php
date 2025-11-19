@@ -11,8 +11,9 @@
 table,th, td {
   border: 1px solid black;
 }
-a{
-        margin-bottom: 20px;
+table{
+        margin-top: 100px;
+        margin-left: 250px;
 }
 
     
@@ -20,9 +21,7 @@ a{
 </style>
 
 
-<a href="Ajouter"
-style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
-Ajouter une Commande Achat</a>
+
 
 <table>
 <tr>   
@@ -46,8 +45,8 @@ Ajouter une Commande Achat</a>
         <td>{{$detaillesCommande -> commandeachat->fournisseur->NomFournisseur}}</td>
         <td>{{ $detaillesCommande -> commandeachat->statut_commande->Statut }}</td>
       
-       <td><a href ="{{ route("achats.edit", $detaillesCommande->DetailAchatID ) }}"> Modifier Achat</a></td>
-      <td> <a href="{{ route('achats.Supprimer', $detaillesCommande->DetailAchatID ) }}" class="button">Supprimer_Achat</a> </td>
+       <td><a href ="{{ route("achats.edit", [$detaillesCommande->DetailAchatID ] )}}"> Modifier Achat</a></td>
+      <td> <a href="{{ route('achats.Supprimer', [$detaillesCommande->CommandeAchatID,$detaillesCommande->DetailAchatID] ) }}" class="button">Supprimer_Achat</a> </td>
        
 </tr>
 @endforeach

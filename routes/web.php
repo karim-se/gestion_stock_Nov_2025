@@ -24,13 +24,14 @@ Route::prefix('Articles')->name('articles.')->group(function () {
 });
 
 Route::prefix('Achats')->name('achats.')->group(function () {
-    Route::get('Liste', [CommandeAchatController::class, 'Liste_Achats'])->name('liste_achats');
+    Route::get('CommandeAchat', [CommandeAchatController::class, 'Liste_Comanande_Achats'])->name('commande_achats');
+    Route::get('Liste/{id}', [CommandeAchatController::class, 'Liste_Achats'])->name('liste_achats');
     Route::get('Ajouter', [CommandeAchatController::class, 'Ajouter_CommandeAchat'])->name('create');
     Route::post('Ajouter', [CommandeAchatController::class, 'Store_CommandeAchat'])->name('store');
-    Route::get('Modifier/{id}', [CommandeAchatController::class, 'edit'])->name('edit');
-    Route::post('Modifier/{id}', [CommandeAchatController::class, 'update'])->name('update');
-    Route::get('Supprimer/{id}', [CommandeAchatController::class, 'Supprimer'])->name('Supprimer');
-    Route::post('Delete/{id}', [CommandeAchatController::class, 'Delete'])->name('delete');
+    Route::get('Modifier/{detailID}', [CommandeAchatController::class, 'edit'])->name('edit');
+    Route::post('Modifier/{commandeID}/{detailID}', [CommandeAchatController::class, 'update'])->name('update');
+    Route::get('Supprimer/{commandeID}/{detailID}', [CommandeAchatController::class, 'Supprimer'])->name('Supprimer');
+    Route::post('Delete/{commandeID}/{detailID}', [CommandeAchatController::class, 'Delete'])->name('delete');
 });
 
 Route::prefix('Ventes')->name('ventes.')->group(function () {

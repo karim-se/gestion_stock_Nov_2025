@@ -12,7 +12,7 @@ table,th, td {
   border: 1px solid black;
 }
 table{
-        margin-top: 100px;
+        margin-top: 60px;
         margin-left: 250px;
 }
 
@@ -21,9 +21,13 @@ table{
 </style>
 
 
-<a href="{{ route("achats.create_detail", [$commandeAchat->CommandeAchatID]) }}"
-style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
-Ajouter un article à cette commande</a>
+<div style="display: flex; justify-content: flex-end; position: relative; top: 50px;">
+  <a href="{{ route('achats.create_detail', [$commandeAchat->CommandeAchatID]) }}"
+     style="padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none; margin-right: 400px;">
+    Ajouter un article à cette commande
+  </a>
+</div>
+
 
 
 

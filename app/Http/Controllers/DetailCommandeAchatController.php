@@ -52,7 +52,16 @@ class DetailCommandeAchatController extends Controller
 
     public function Store(Request $request,$id)
     {
-        
+        foreach ($request->articles as $article) {
+
+        $exists = DetailCommandeAchat::where('CommandeAchatID', $id)
+            ->where('ArticleID', $article['ArticleID'])
+            ->exists();
+        if ($exists) {
+            $nomArticle=Article::find($article['ArticleID'])->NomArticle;
+             return redirect()->back()->with('error', 'L\'article "' . $nomArticle . '" existe déjà dans cette commande.');
+        }
+    }
        
         
 
@@ -75,7 +84,8 @@ class DetailCommandeAchatController extends Controller
                     $art->save();
                 }
   }      
-   return redirect(route("achats.liste_achats", ["id"=>$id]));
+   return redirect(route("achats.liste_achats", 
+));
         
     }
 

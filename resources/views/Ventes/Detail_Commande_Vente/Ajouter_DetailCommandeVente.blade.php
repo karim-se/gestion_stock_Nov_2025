@@ -13,35 +13,19 @@ label, input, button , select, table {
 
 </style>
 <body>
-<form method="POST" action="{{ route('ventes.store') }}">
+<form method="POST" action="{{ route('ventes.store_detail', [$commandevente->CommandeVenteID]) }}">
 
-            @csrf
-                <div>
+        
+             
+                 @csrf
 
-                        <label for="Client" >Nom Client</label>
-                        <select id="Client" name="ClientID">
-                            @foreach ($clients as $client )
-                            <option value="{{$client->ClientID  }}" >{{$client->NomClient}}</option>
-                            
-                            @endforeach
-                            <option></option>
+     @if (session('error'))
+    <div style="color:red; margin-bottom: 20px;">
+        {{ session('error') }}
+    </div>
+@endif 
 
-                        </select>
-
-                </div>
-                
-
-                <div>
-                    <label for="Statut"> Statut Commande</label>
-                    <select id ="Statut" name="Statut_ID">
-                        @foreach ($status as  $statut)
-                        <option value="{{ $statut-> Statut_ID}}">{{ $statut-> Statut}}</option>
-                        
-                        @endforeach
-
-                    </select>
-
-            </div> 
+               
                 
 
 
@@ -89,28 +73,53 @@ label, input, button , select, table {
 </form>
 
 <script>
+
+    let selectedArticles = new Set();  
         function Afficher_Article()
         {
 
-         
+           
            let ArticleID = document.getElementById("Article");     
            let NomArticle = document.getElementById("Article").options[document.getElementById("Article").selectedIndex];
           let PrixUnitaire=document.getElementById("PrixUnitaire");
           let Quantite=document.getElementById("Quantite");
 
 
+          // Vérifier si l'article est déjà sélectionné
+    if (selectedArticles.has(ArticleID.value)) {
+        alert('Cet article a déjà été sélectionné !');
+        return;
+    }
+
           let vente_tr=document.createElement("tr");
+          vente_tr.setAttribute("data-article-id", ArticleID.value); // pour identifier l'article
           let NomArticle_td=document.createElement("td");
           let PrixUnitaire_td=document.createElement("td");
           let Quantite_td=document.createElement("td");
+          let  supprimbtn=document.createElement("td");
+          let actionTd = document.createElement("td");
 
           NomArticle_td.innerText=NomArticle.text;
           PrixUnitaire_td.innerText=PrixUnitaire.value;
           Quantite_td.innerText=Quantite.value;
+          
+
+          // Bouton supprimer
+        let btnSuppr = document.createElement("button");
+        btnSuppr.type = "button";
+        btnSuppr.innerText = "Supprimer";
+        btnSuppr.addEventListener("click", function() {
+            supprimerArticle(this, ArticleID.value);
+        });
+
+        actionTd.appendChild(btnSuppr);
+
       
           vente_tr.appendChild(NomArticle_td);
           vente_tr.appendChild(PrixUnitaire_td);
           vente_tr.appendChild(Quantite_td);
+           vente_tr.appendChild(actionTd);
+          
 
           document.getElementById("Liste_Articles").appendChild(vente_tr);
 
@@ -122,15 +131,69 @@ label, input, button , select, table {
                 <input type="hidden" name="articles[${index}][PrixUnitaire]" value="${PrixUnitaire.value}">
                 <input type="hidden" name="articles[${index}][Quantite]" value="${Quantite.value}">
                 `;
+
+                hiddenContainer.classList.add("hidden-article"); 
                 document.querySelector("form").appendChild(hiddenContainer);
+
+                selectedArticles.add(ArticleID.value);
+
 
 
                PrixUnitaire.value= "";
                Quantite.value= "";
-                
-           
-
+                 
         }
+
+
+        function supprimerArticle(button, ArticleID) {
+			// Supprimer la ligne du tableau
+			let tr = button.closest('tr');
+			tr.remove();
+			
+			// Supprimer les champs cachés correspondants
+			let hiddenInputs = document.querySelectorAll(`input[value="${ArticleID}"]`);
+			hiddenInputs.forEach(input => {
+				if (input.name.includes('[ArticleID]')) {
+					let container = input.closest('div');
+					container.remove();
+				}
+			});
+			
+			// Retirer l'article de la liste des articles sélectionnés
+			selectedArticles.delete(ArticleID);
+			
+			// Recalculer les index des champs cachés restants
+			recalculerIndex();
+		}
+
+		function recalculerIndex() {
+			let rows = document.querySelectorAll("#Liste_Articles tr");
+			let hiddenContainers = document.querySelectorAll('form > div'); // Les conteneurs de champs cachés
+			
+			let index = 0;
+			for (let i = 1; i < rows.length; i++) { // Commencer à 1 pour ignorer l'en-tête
+				let articleId = rows[i].getAttribute('data-article-id');
+				
+				// Mettre à jour les champs cachés correspondants
+				let correspondingInputs = document.querySelectorAll(`input[value="${articleId}"]`);
+				correspondingInputs.forEach(input => {
+					if (input.name.includes('[ArticleID]')) {
+						input.name = `articles[${index}][ArticleID]`;
+					} else if (input.name.includes('[PrixUnitaire]')) {
+						input.name = `articles[${index}][PrixUnitaire]`;
+					} else if (input.name.includes('[Quantite]')) {
+						input.name = `articles[${index}][Quantite]`;
+					}
+				});
+				
+				index++;
+		}
+ }
+
+
+
+
+        
   
 
 </script>

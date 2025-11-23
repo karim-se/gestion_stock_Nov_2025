@@ -18,6 +18,15 @@
 
 <form method="POST" action ="{{ route('achats.store_detail',[$commandeAchat->CommandeAchatID]) }}" >
      @csrf
+
+     @if (session('error'))
+    <div style="color:red; margin-bottom: 20px;">
+        {{ session('error') }}
+    </div>
+@endif
+
+
+
  
 
     <div id="Detailles">
@@ -61,6 +70,7 @@
         <th>Nom Article</th>
         <th>Prix Unitaire</th>
         <th>Quantite</th>
+        <th>Supprimer</th>
     </tr>
 </table>
 
@@ -83,10 +93,12 @@ function Afficher_Articles() {
     }
 
     let tr = document.createElement("tr");
+    tr.setAttribute("data-article-id", article.value); // pour identifier l'article
     tr.innerHTML = `
         <td>${article.options[article.selectedIndex].text}</td>
         <td>${prix.value}</td>
         <td>${quantite.value}</td>
+        <td><button type="button" onclick="supprimerArticle(this, '${article.value}')">Supprimer</button></td>
        
     `;
     document.getElementById("Liste_Articles").appendChild(tr);
@@ -99,6 +111,8 @@ function Afficher_Articles() {
         <input type="hidden" name="articles[${index}][PrixUnitaire]" value="${prix.value}">
         <input type="hidden" name="articles[${index}][Quantite]" value="${quantite.value}">
     `;
+
+        hiddenContainer.classList.add("hidden-article"); // pour pouvoir le retrouver
         document.querySelector("form").appendChild(hiddenContainer);
 
         selectedArticles.add(article.value);
@@ -106,6 +120,51 @@ function Afficher_Articles() {
         prix.value = "";
         quantite.value = "";
 }
+
+		function supprimerArticle(button, articleId) {
+			// Supprimer la ligne du tableau
+			let tr = button.closest('tr');
+			tr.remove();
+			
+			// Supprimer les champs cachés correspondants
+			let hiddenInputs = document.querySelectorAll(`input[value="${articleId}"]`);
+			hiddenInputs.forEach(input => {
+				if (input.name.includes('[ArticleID]')) {
+					let container = input.closest('div');
+					container.remove();
+				}
+			});
+			
+			// Retirer l'article de la liste des articles sélectionnés
+			selectedArticles.delete(articleId);
+			
+			// Recalculer les index des champs cachés restants
+			recalculerIndex();
+		}
+
+		function recalculerIndex() {
+			let rows = document.querySelectorAll("#Liste_Articles tr");
+			let hiddenContainers = document.querySelectorAll('form > div'); // Les conteneurs de champs cachés
+			
+			let index = 0;
+			for (let i = 1; i < rows.length; i++) { // Commencer à 1 pour ignorer l'en-tête
+				let articleId = rows[i].getAttribute('data-article-id');
+				
+				// Mettre à jour les champs cachés correspondants
+				let correspondingInputs = document.querySelectorAll(`input[value="${articleId}"]`);
+				correspondingInputs.forEach(input => {
+					if (input.name.includes('[ArticleID]')) {
+						input.name = `articles[${index}][ArticleID]`;
+					} else if (input.name.includes('[PrixUnitaire]')) {
+						input.name = `articles[${index}][PrixUnitaire]`;
+					} else if (input.name.includes('[Quantite]')) {
+						input.name = `articles[${index}][Quantite]`;
+					}
+				});
+				
+				index++;
+		}
+ }
 
 
 

@@ -25,7 +25,7 @@ class ArticleController extends Controller
     }
 
 
-    public function Ajouter_Article()
+    public function Create()
     {
         $categories=Categorie::all();
         return view ('Articles/Ajouter_Article', compact('categories'));
@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
 
 
-    public function Store_Article(Request $request)
+    public function Store(Request $request)
     {
 
         Article::create($request->all());
@@ -42,7 +42,7 @@ class ArticleController extends Controller
     }
 
 
-    public function edit($id)
+    public function Edit($id)
     {
 
        $article = Article::findOrFail($id);
@@ -52,7 +52,7 @@ class ArticleController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function Update(Request $request, $id)
     {
 
         $article = Article::findOrFail($id);

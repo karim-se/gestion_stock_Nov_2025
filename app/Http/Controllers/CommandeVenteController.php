@@ -1,7 +1,8 @@
-<?PHP
+<?php
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Client;
 use App\Models\Fournisseur;
@@ -9,24 +10,22 @@ use App\Models\StatutCommande;
 use App\Models\Commandevente;
 
 
-use Illuminate\Http\Request;
+
 use App\Models\Detailcommandevente;
-use View;
 
-class CommandeVenteController
+class CommandeVenteController extends Controller
 {
+    //
+      public function Liste_Ventes(){
 
+      $commandesventes=Commandevente::all();
 
-   public function Liste_Ventes(){
-
-      $detailecommandesventes=Detailcommandevente::all();
-
-        return View("Ventes\Liste_Ventes", compact("detailecommandesventes"));
+        return View("Ventes/Commande_Vente/Liste_CommandeVentes", compact("commandesventes"));
    }
 
 
     
-    public function Ajouter_CommandeVente()
+    public function Create()
     {
 
 
@@ -34,12 +33,12 @@ class CommandeVenteController
         $clients=Client::all();
         $status=StatutCommande::all();
 
-        return view("Ventes/Ajouter_CommandeVente", compact ("clients", "status", "articles"));
+        return view("Ventes/Commande_Vente/Ajouter_CommandeVente", compact ("clients", "status", "articles"));
 
     }
 
 
-    public function Store_CommandeVente(Request $request)
+    public function Store(Request $request)
     {
   
        
@@ -75,7 +74,7 @@ class CommandeVenteController
 
           
         }
-            return redirect()->route('ventes.liste_ventes');
+            return redirect()->route('ventes.commandes_ventes');
 
 
         
@@ -85,12 +84,12 @@ class CommandeVenteController
 
     public function  Edit($id){
 
-        $detailescommandevents=Detailcommandevente::find($id);
+        $commandeventes=Commandevente::find($id);
         $clients=Client::all();
         $statuts=StatutCommande::all();
-        $articles=Article::all();
+   
 
-        return view("Ventes\Modifier_Vente", compact("detailescommandevents","clients","statuts","articles"));
+        return view("Ventes/Commande_Vente/Modifier_CommandeVente", compact("commandeventes","clients","statuts"));
 
 
     }
@@ -98,15 +97,15 @@ class CommandeVenteController
     public function Update(Request $request,$id)
     {
 
-       $detailcommandevente=Detailcommandevente::find($id);
-       $commandevente=Commandevente::find($detailcommandevente->CommandeVenteID);
+       
+       $commandevente=Commandevente::find($id);
 
 
 
-       $detailcommandevente->update($request->all());
+ 
        $commandevente->update($request->all());
 
-       return redirect(route("ventes.liste_ventes"));
+       return redirect(route("ventes.commandes_ventes"));
 
 
     }
@@ -116,7 +115,7 @@ class CommandeVenteController
      public function Supprimer($id)
     {
 
-        return view("Ventes/Delete_CommandeVente", compact("id"));
+        return view("Ventes/Commande_Vente/Delete_CommandeVente", compact("id"));
 
     }
 
@@ -124,9 +123,12 @@ class CommandeVenteController
 
     public function Delete($id)
     {
+     
 
-        Detailcommandevente::destroy($id);
+        Commandevente::destroy($id);
 
-        return redirect(route("ventes.liste_ventes"));
+        return redirect(route("ventes.commandes_ventes"));
     }
+
+
 }

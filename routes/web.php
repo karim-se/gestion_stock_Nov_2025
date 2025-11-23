@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommandeAchatController;
 use App\Http\Controllers\DetailCommandeAchatController;
 use App\Http\Controllers\CommandeVenteController;
+use App\Http\Controllers\DetailCommandeVenteController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,23 +38,33 @@ Route::prefix('Achats')->name('achats.')->group(function () {
     Route::get('Liste/{id}', [DetailCommandeAchatController::class, 'Liste_Achats'])->name('liste_achats');
     Route::get('Detail_Commande_Achat/Ajouter/{commandeID}', [DetailCommandeAchatController::class, 'Create'])->name('create_detail');
     Route::post('Detail_Commande_Achat/Ajouter/{commandeID}', [DetailCommandeAchatController::class, 'Store'])->name('store_detail');
-    Route::get('Modifier/{detailID}', [DetailCommandeAchatController::class, 'Edit'])->name('edit');
-    Route::post('Modifier/{commandeID}/{detailID}', [DetailCommandeAchatController::class, 'Update'])->name('update');
-    Route::get('Supprimer/{commandeID}/{detailID}', [DetailCommandeAchatController::class, 'Supprimer'])->name('Supprimer');
-    Route::post('Delete/{commandeID}/{detailID}', [DetailCommandeAchatController::class, 'Delete'])->name('delete');
+    Route::get('Detail_Commande_Achat/Modifier/{detailID}', [DetailCommandeAchatController::class, 'Edit'])->name('edit');
+    Route::post('Detail_Commande_Achat/Modifier/{commandeID}/{detailID}', [DetailCommandeAchatController::class, 'Update'])->name('update');
+    Route::get('Detail_Commande_Achat/Supprimer/{commandeID}/{detailID}', [DetailCommandeAchatController::class, 'Supprimer'])->name('Supprimer');
+    Route::post('Detail_Commande_Achat/Delete/{commandeID}/{detailID}', [DetailCommandeAchatController::class, 'Delete'])->name('delete');
 });
 
 Route::prefix('Ventes')->name('ventes.')->group(function () {
-    Route::get('Liste', [CommandeVenteController::class, 'Liste_Ventes'])->name('liste_ventes');
-    Route::get('Ajouter', [CommandeVenteController::class, 'Ajouter_CommandeVente'])->name('create');
-    Route::post('Ajouter', [CommandeVenteController::class, 'Store_CommandeVente'])->name('store');
-    Route::get('Modifier/{id}', [CommandeVenteController::class, 'Edit'])->name('edit');
-    Route::post('Update/{id}', [CommandeVenteController::class, 'Update'])->name('update');
-    Route::get('Supprimer/{id}', [CommandeVenteController::class, 'Supprimer'])->name('Supprimer');
-    Route::post('Delete/{id}', [CommandeVenteController::class, 'Delete'])->name('delete');
+    
+    Route::get("CommandeVente/Liste_Ventes",[CommandeVenteController::class, "Liste_Ventes"])->name("commandes_ventes");
+    Route::get("CommandeVente/Ajouter", [CommandeVenteController::class,"Create"])->name("create_commande");
+    Route::post("CommandeVente/Ajouter", [CommandeVenteController::class, "Store"])->name("store_commande");
+    Route::get("CommandeVente/Modifier/{commandeID}",[CommandeVenteController::class,"Edit"])->name("edit_commande");
+    Route::post("CommandeVente/modifier/{commandeID}",[CommandeVenteController::class,"Update"])->name("update_commande");
+    Route::get("CommandeVente/Supprimer/{commandeID}",[CommandeVenteController::class,"Supprimer"])->name("supprimer_commande");
+    Route::post("CommandeVente/Delete/{commandeID}",[CommandeVenteController::class,"Delete"])->name("delete_commande");
+
+
+    Route::get('Detail_Commande/Liste/{id}', [DetailCommandeVenteController::class, 'Liste_Ventes'])->name('liste_ventes');
+    Route::get('Detail_Commande_Vente/Ajouter/{commandeID}', [DetailCommandeVenteController::class, 'Create'])->name('create_detail');
+    Route::post('Detail_Commande_Vente/Ajouter/{commandeID}', [DetailCommandeVenteController::class, 'Store'])->name('store_detail');
+    Route::get('Detail_Commande_Vente/Modifier/{commandeID}', [DetailCommandeVenteController::class, 'Edit'])->name('edit_detail');
+    Route::post('Detail_Commande_Vente/Update/{commandeID}/{detailID}', [DetailCommandeVenteController::class, 'Update'])->name('update_detail');
+    Route::get('Detail_Commande_Vente/Supprimer/{commandeID}/{detailID}', [DetailCommandeVenteController::class, 'Supprimer'])->name('Supprimer_detail');
+    Route::post('Detail_Commande_Vente/Delete/{commandeID}/{detailID}', [DetailCommandeVenteController::class, 'Delete'])->name('delete_detail');
 });
 
-
+ 
 
 
 

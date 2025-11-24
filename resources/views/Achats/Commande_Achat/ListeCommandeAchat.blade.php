@@ -42,8 +42,8 @@ Ajouter une Commande Achat</a>
          
              
         <tr>
-              <td>{{ $commandeachat->fournisseur->NomFournisseur}}</td>
-              <td>{{ $commandeachat->statut_commande->Statut }}</td>
+              <td>{{ $commandeachat->NomFournisseur}}</td>
+              <td>{{ $commandeachat->Statut }}</td>
               <td>{{ $commandeachat->DateCommande }}</td>
            <td><a href ="{{ route("achats.liste_achats", $commandeachat->CommandeAchatID ) }}"> Voir Détailles</a></td>
           <td><a href ="{{ route("achats.edit_commande", $commandeachat->CommandeAchatID ) }}"> Modifier Commande</a></td>

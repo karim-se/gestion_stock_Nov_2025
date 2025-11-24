@@ -9,17 +9,33 @@ use App\Models\Detailcommandeachat;
 use App\Models\Article;
 use App\Models\Fournisseur;
 use App\Models\StatutCommande;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class CommandeAchatController extends Controller
 {
 
 
-    public function Liste_Comanande_Achats(){
+   public function Liste_Comanande_Achats()
+{
+  
 
-        $commandesachat=Commandeachat::all();
-      
-        return view ("Achats/Commande_Achat/ListeCommandeAchat", compact("commandesachat"));
-    }
+    $commandesachat =  DB::table('commandeachats')
+            ->leftJoin('fournisseurs', 'commandeachats.FournisseurID', '=', 'fournisseurs.FournisseurID')
+            ->leftJoin('statut_commande', 'commandeachats.Statut_ID', '=', 'statut_commande.Statut_ID')
+            ->select(
+                'commandeachats.CommandeAchatID',
+                'commandeachats.DateCommande',
+                'fournisseurs.NomFournisseur',
+                'statut_commande.Statut'
+            )
+            ->orderBy('commandeachats.CommandeAchatID') // toujours ordonner pour la pagination
+            ->get();
+    
+
+    return view("Achats/Commande_Achat/ListeCommandeAchat", compact("commandesachat"));
+}
+
 
 
     public function Create()
@@ -36,7 +52,7 @@ class CommandeAchatController extends Controller
     public function Store(Request $request)
     {
         
-       
+    
         $Commandeachat=Commandeachat::create($request->all());
 
 
@@ -69,7 +85,8 @@ class CommandeAchatController extends Controller
 
      public function Edit ($id2)
     {
-      
+
+    
         $commandeAchat=Commandeachat::findOrFail($id2);
         
         $fournisseurs=Fournisseur::all();
@@ -82,7 +99,7 @@ class CommandeAchatController extends Controller
        public function Update ($id1, Request $request)
     {
  
-        
+  
         $CommandeAchat=Commandeachat::find( $id1);
 
      

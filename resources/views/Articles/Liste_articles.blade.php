@@ -26,6 +26,25 @@ style="display:inline-block; padding:8px 15px; background-color:#006400; color:w
 Ajouter un Article</a>
 
 
+<a href="{{ route("achats.commande_achats") }}"
+style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
+Voir Commandes Achats</a>
+
+<a href="{{ route("ventes.commandes_ventes") }}"
+style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
+Voir Commandes Ventes</a>
+
+
+<!-- Formulaire de logout -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="position: fixed; top: 10px; right: 330px;">
+    @csrf
+    <button type="submit" 
+            style="background-color: #FF0000; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+        Logout
+    </button>
+</form>
+
+
  <table>
      <tr>
      <th> Nom article</th>

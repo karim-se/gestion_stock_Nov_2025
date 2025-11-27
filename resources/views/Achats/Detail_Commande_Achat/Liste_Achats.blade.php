@@ -53,8 +53,8 @@ table{
         <td>{{ $detaillesCommande -> Quantite}}</td>
 
       
-       <td><a href ="{{ route("achats.edit", [$detaillesCommande->DetailAchatID ] )}}"> Modifier Achat</a></td>
-      <td> <a href="{{ route('achats.Supprimer', [$detaillesCommande->CommandeAchatID,$detaillesCommande->DetailAchatID] ) }}" class="button">Supprimer_Achat</a> </td>
+       <td><a href ="{{ route("achats.edit_detail", [$detaillesCommande->DetailAchatID ] )}}"> Modifier Achat</a></td>
+      <td> <a href="{{ route('achats.Supprimer_detail', [$detaillesCommande->CommandeAchatID,$detaillesCommande->DetailAchatID] ) }}" class="button">Supprimer_Achat</a> </td>
        
 </tr>
 @endforeach

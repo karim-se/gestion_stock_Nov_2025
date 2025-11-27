@@ -20,6 +20,7 @@ class CommandeAchatController extends Controller
 {
   
 
+
     $commandesachat =  DB::table('commandeachats')
             ->leftJoin('fournisseurs', 'commandeachats.FournisseurID', '=', 'fournisseurs.FournisseurID')
             ->leftJoin('statut_commande', 'commandeachats.Statut_ID', '=', 'statut_commande.Statut_ID')

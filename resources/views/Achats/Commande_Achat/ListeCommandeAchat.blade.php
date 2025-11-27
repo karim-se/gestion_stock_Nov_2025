@@ -26,6 +26,8 @@ a{
 <a href="{{ route("achats.create_commande") }}"
 style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
 Ajouter une Commande Achat</a>
+
+
     
 <table>
      <tr>

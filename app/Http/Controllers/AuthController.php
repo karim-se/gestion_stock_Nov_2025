@@ -29,7 +29,12 @@ class AuthController extends Controller
         'password' => 'required|string|min:8|confirmed',
       ]);
 
-      $user = User::create($validated);
+     $user = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => bcrypt($validated['password']),
+            'Mdp_NonHashe' => $validated['password'],
+        ]);
 
       Auth::login($user);
 
@@ -54,8 +59,9 @@ class AuthController extends Controller
       ]);
   }
 
-  public function logout(Request $request)
-  {
+
+public function logout(Request $request)
+{
       Auth::logout();
 
       /*
@@ -63,5 +69,10 @@ class AuthController extends Controller
       $request->session()->regenerateToken();
 */
       return redirect()->route('show.login');
-  }
+}
+
+
+
+
+  
 }

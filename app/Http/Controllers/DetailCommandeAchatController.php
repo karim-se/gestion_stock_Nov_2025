@@ -84,7 +84,7 @@ class DetailCommandeAchatController extends Controller
                     $art->save();
                 }
   }      
-   return redirect(route("achats.liste_achats", 
+   return redirect(route("achats.liste_achats",$id 
 ));
         
     }

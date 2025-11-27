@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('achats.update', [$detailsCommandeAchat->CommandeAchatID, $detailsCommandeAchat->DetailAchatID]) }}" method="POST">
+    <form action ="{{ route('achats.update_detail', [$detailsCommandeAchat->CommandeAchatID, $detailsCommandeAchat->DetailAchatID]) }}" method="POST">
          @csrf
         <input type="hidden" asp-for="articleID" />
 

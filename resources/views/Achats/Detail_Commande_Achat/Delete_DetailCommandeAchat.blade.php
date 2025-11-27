@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('achats.delete', [$id1,$id2]) }}" method="POST">
+    <form action ="{{ route('achats.delete_detail', [$id1,$id2]) }}" method="POST">
          @csrf
         <input type="hidden" asp-for="articleID" />
 

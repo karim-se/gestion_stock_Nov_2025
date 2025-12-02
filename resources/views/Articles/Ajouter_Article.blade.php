@@ -15,7 +15,7 @@
 
 
 <body>
-    <form action ="{{ route('articles.store') }}" method="POST">
+    <form action ="{{ route('articles.articles-staging.store') }}" method="POST">
          @csrf
         <div>
             <label for="Nom_Article">Nom Article</label>
@@ -32,43 +32,47 @@
             <input type="text" id="Description" name="Description"> 
         </div>
 
-        <div>
-            <label for="Prix_Achat" >Prix Achat</label>
-            <input type="number" id="Prix_Achat" name="PrixAchatStandard">
-        </div>
-
-
-         <div>
-            <label for="Prix_Vente" >Prix Vente</label>
-            <input type="number" id="Prix_Vente" name="PrixVenteStandard">
-        </div>
-       
-        
-
+         
         <diV>
            
             <label for ="Categorie">Categorie</label>  
-            <select id="Categorie" name="CategorieID">
+            <select id="Categorie" name="categorieID">
                     @foreach($categories as $categorie)
                 <option value= "{{ $categorie->CategorieID }}">{{$categorie->NomCategorie}}</option>
                     @endforeach
             </select>
         </diV>
 
+        <div>
+            <label for="PrixAchatStandard">PrixAchatStandard</label>
+            <input type="number" id="PrixAchatStandard" name="PrixAchatStandard"> 
+        </div>
 
          <div>
-            <label for="Stock_Actuel" >Stock Actuel</label>
-            <input type="number" id="Stock_Actuel" name="StockActuel">
+            <label for="PrixVenteStandard">PrixVenteStandard</label>
+            <input type="number" id="PrixVenteStandard" name="PrixVenteStandard"> 
         </div>
 
-        <div>
-            <label for="Stock_Minimum" >Stock Minimum</label>
-            <input type="number" id="Stock_Minimum" name="StockMinimum">
-        </div>
 
         <div>
-            <button type="submit"> Enregistrer</button>
+            <label for="StockActuel">StockActuel</label>
+            <input type="number" id="StockActuel" name="StockActuel"> 
         </div>
+
+
+         <div>
+            <label for="StockMinimum">StockMinimum</label>
+            <input type="number" id="StockMinimum" name="StockMinimum"> 
+        </div>
+
+
+         <div class="button-group">
+            <button type="submit">✓ Enregistrer et Envoyer pour Validation</button>
+            <a href="{{ route('articles.articles-staging.index') }}" class="btn-cancel">✕ Annuler</a>
+        </div>
+
+
+
     </form>
 </body>
 </html>

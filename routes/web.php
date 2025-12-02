@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleStagingController;
 use App\Http\Controllers\CommandeAchatController;
 use App\Http\Controllers\DetailCommandeAchatController;
 use App\Http\Controllers\CommandeVenteController;
@@ -22,12 +23,33 @@ Route::middleware(['auth', \App\Http\Middleware\NoCacheMiddleware::class])->grou
     // Articles
     Route::prefix('Articles')->name('articles.')->group(function () {
         Route::get('/Liste', [ArticleController::class, 'Liste_Articles'])->name('liste_articles');
+       /*
         Route::get('Ajouter', [ArticleController::class, 'Create'])->name('create');
         Route::post('Ajouter', [ArticleController::class, 'Store'])->name('store');
+*/
+
         Route::get('Modifier/{id}', [ArticleController::class, 'Edit'])->name('edit');
         Route::post('Modifier/{id}', [ArticleController::class, 'Update'])->name('update');
         Route::get('Supprimer/{id}', [ArticleController::class, 'Supprimer'])->name('Supprimer');
         Route::post('Delete/{id}', [ArticleController::class, 'Delete'])->name('delete');
+
+       // Routes pour les articles en staging
+        Route::resource('articles-staging', ArticleStagingController::class)
+            ->except(['edit', 'update', 'destroy']);
+        
+        // Routes spécifiques pour la validation (RESPONSABLE UNIQUEMENT)
+        Route::post('articles-staging/{articleStaging}/valider', [ArticleStagingController::class, 'valider'])
+            ->name('articles-staging.valider');
+           // ->middleware('permission:validate-article');
+        
+        Route::post('articles-staging/{articleStaging}/rejeter', [ArticleStagingController::class, 'rejeter'])
+            ->name('articles-staging.rejeter');
+
+
+
+            
+
+
     });
 
     // Achats

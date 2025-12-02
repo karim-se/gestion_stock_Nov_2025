@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Spatie\Permission\Traits\HasRoles;
 /**
  * Class User
  * 
@@ -29,7 +29,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
 
-	use HasFactory, Notifiable;
+	use HasFactory, Notifiable, HasRoles;
 	protected $table = 'users';
 
 	protected $casts = [
@@ -50,4 +50,15 @@ class User extends Authenticatable
 		'remember_token',
 		'Mdp_NonHashe'
 	];
+
+	 public function articlesCreated()
+    {
+        return $this->hasMany(article_staging::class, 'user_id');
+    }
+
+    // Relation avec les articles validés
+    public function articlesValidated()
+    {
+        return $this->hasMany(article_staging::class, 'validated_by');
+    }
 }

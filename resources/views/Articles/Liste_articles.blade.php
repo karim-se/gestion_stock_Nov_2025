@@ -21,7 +21,7 @@ a {
 <body>
 
  
-<a href="Ajouter"
+<a href="{{ Route("articles.articles-staging.index") }}"
 style="display:inline-block; padding:8px 15px; background-color:#006400; color:white; border:none; border-radius:6px; text-decoration:none;">
 Ajouter un Article</a>
 

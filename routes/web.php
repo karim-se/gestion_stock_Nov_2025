@@ -6,6 +6,7 @@ use App\Http\Controllers\CommandeAchatController;
 use App\Http\Controllers\DetailCommandeAchatController;
 use App\Http\Controllers\CommandeVenteController;
 use App\Http\Controllers\DetailCommandeVenteController;
+use App\Http\Controllers\mouvementController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -44,10 +45,6 @@ Route::middleware(['auth', \App\Http\Middleware\NoCacheMiddleware::class])->grou
         
         Route::post('articles-staging/{articleStaging}/rejeter', [ArticleStagingController::class, 'rejeter'])
             ->name('articles-staging.rejeter');
-
-
-
-            
 
 
     });
@@ -89,6 +86,9 @@ Route::middleware(['auth', \App\Http\Middleware\NoCacheMiddleware::class])->grou
         Route::get('Detail_Commande_Vente/Supprimer/{commandeID}/{detailID}', [DetailCommandeVenteController::class, 'Supprimer'])->name('Supprimer_detail');
         Route::post('Detail_Commande_Vente/Delete/{commandeID}/{detailID}', [DetailCommandeVenteController::class, 'Delete'])->name('delete_detail');
     });
+
+
+      Route::resource("mouvement",mouvementController::class); 
 
     // Logout sécurisé
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
